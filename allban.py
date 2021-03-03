@@ -4,11 +4,8 @@
 from asyncio import sleep
 from telethon.tl.types import ChatBannedRights, ChannelParticipantsAdmins, ChatAdminRights
 from telethon.tl.functions.channels import EditBannedRequest
-from userbot.utils import admin_cmd
-from userbot import bot, CMD_HELP
-
-
-@bot.on(admin_cmd(pattern=r"allban", outgoing=True))
+client = bot
+@ultroid_cmd(pattern="allban")
 async def testing(event):
     nikal = await event.get_chat()
     chutiya = await event.client.get_me()
@@ -18,7 +15,7 @@ async def testing(event):
         await event.edit(" U Don't have sufficient permission 🧐 u noob 😑😑")
         return
     await event.edit("Doing Nothing 🙃🙂")#Kang with Credits
-# for Dark_Cobra
+# for LEGEND-BOT
     everyone = await event.client.get_participants(event.chat_id)
     for user in everyone:
         if user.id == chutiya.id:
