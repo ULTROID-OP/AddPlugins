@@ -8,9 +8,6 @@ import requests
 import re
 import json
 import asyncio
-from userbot import CMD_HELP
-from userbot.utils import admin_cmd, edit_or_reply, sudo_cmd
-
 async def callAPI(search_str):
     query = '''
     query ($id: Int,$search: String) { 
@@ -75,8 +72,7 @@ async def formatJSON(outData):
         msg += " __" + re.sub("<br>", '\n', cat) +"__"
         return msg
         
-@bot.on(admin_cmd(pattern="anilist (.*)"))
-@bot.on(sudo_cmd(pattern="anilist (.*)", allow_sudo=True))
+@ultroid_cmd(pattern="anilist (.*)")
 async def anilist(event):
     if event.fwd_from:
         return
@@ -86,8 +82,3 @@ async def anilist(event):
     msg = await formatJSON(result)
     await event.edit(msg, link_preview=True)
 
-CMD_HELP.update({
-    "anilist":
-    ".anilist <anime name >\
-     \nUSAGE: Shows you the details of the anime."
-})
