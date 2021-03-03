@@ -6,7 +6,7 @@ from telethon import events
 DEFAULTUSER = bot.me.first_name
 
 
-@ultroid_cmd(pattern="stupid$")
+@ultroid_cmd(pattern="stupid")
 async def _(event):
     if event.fwd_from:
         return
@@ -34,7 +34,7 @@ async def _(event):
         await event.edit(animation_chars[i % 14])
 
 
-@ultroid_cmd(pattern=f"bombs$", outgoing=True)
+@ultroid_cmd(pattern="bombs")
 async def _(event):
     if event.fwd_from:
         return
@@ -61,7 +61,7 @@ async def _(event):
     await asyncio.sleep(2)
 
 
-@ultroid_cmd(pattern=r"call$")
+@ultroid_cmd(pattern="call")
 async def _(event):
     if event.fwd_from:
         return
@@ -90,7 +90,7 @@ async def _(event):
         await event.edit(animation_chars[i % 18])
 
 
-@bot.on(admin_cmd(pattern=r"kill$")
+@ultroid_cmd(pattern="kill")
 async def _(event):
     if event.fwd_from:
         return
@@ -132,7 +132,7 @@ async def _(event):
 
 
 
-@ultroid_cmd(pattern="wtf$"))
+@ultroid_cmd(pattern="wtf"))
 async def _(event):
     if event.fwd_from:
         return
@@ -175,7 +175,7 @@ async def _(event):
         await event.edit(animation_chars[i % 10])
 
 
-@ultroid_cmd(pattern=f"hypno$", outgoing=True)
+@ultroid_cmd(pattern="hypno$")
 async def _(event):
     if event.fwd_from:
         return
