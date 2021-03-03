@@ -1,7 +1,7 @@
 #credits to userge
 #ported to LEGENDBOT by @legendx22
 #will be adding more soon
-
+client = bot
 import os, urllib, requests, asyncio
 
 @ultroid_cmd(pattern="boobs")
