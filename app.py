@@ -6,14 +6,11 @@
 import bs4
 import requests
 
-from userbot.utils import admin_cmd, edit_or_reply, sudo_cmd
-from userbot import ALIVE_NAME, CMD_HELP
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Hell User"
+DEFAULTUSER = bot.me.first_name
 
 
-@bot.on(admin_cmd(pattern="app (.*)"))
-@bot.on(sudo_cmd(pattern="app (.*)", allow_sudo=True))
+@ultroi_cmd(pattern="app (.*)")
 async def apk(event):
     app_name = event.pattern_match.group(1)
     event = await edit_or_reply(event, "Searching!")
@@ -166,15 +163,3 @@ async def mod(event):
     await event.delete()
 
 
-CMD_HELP.update(
-    {
-        "app": "**Plugin :** `app`\
-        \n**Syntax : **`.app [app name]`\
-        \n**Usage: **searches the app in the playstore and provides the link to the app in playstore and fetchs app details \
-        \n\n**Syntax : **`.mods [app name]`\
-        \n**Usage: **searches and downloads the modded app\
-        \n\n**Syntax : **`.appr [app name]`\
-        \n**Usage: **searches the app in the playstore and provides the link to the app in playstore and fetchs app details with Xpl0iter request link. \
-        "
-    }
-)
