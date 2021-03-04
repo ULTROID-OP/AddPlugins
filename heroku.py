@@ -20,12 +20,12 @@ from userbot.uniborgConfig import Config
 Heroku = heroku3.from_key(Config.HEROKU_API_KEY)
 Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
 heroku_api = "https://api.heroku.com"
-HEROKU_APP_NAME = Config.HEROKU_APP_NAME
-HEROKU_API_KEY = Config.HEROKU_API_KEY
+HEROKU_APP_NAME = Var.HEROKU_APP_NAME
+HEROKU_API_KEY = Var.HEROKU_API_KEY
 
 Heroku = heroku3.from_key(Var.HEROKU_API_KEY)
 heroku_api = "https://api.heroku.com"
-
+borg = bot
 
 @borg.on(admin_cmd(pattern="(set|get|del) var(?: |$)(.*)(?: |$)([\s\S]*)", outgoing=True))
 async def variable(var):
