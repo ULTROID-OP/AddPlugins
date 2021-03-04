@@ -20,13 +20,12 @@ import random
 import re
 from telethon import events, errors, custom
 import io
-from platform import python_version, uname
 
 ALIVE_PHOTTO = Var.ALIVE_PHOTTO
 if ALIVE_PHOTTO is None:
   ALIVE_PHOTTO = "https://telegra.ph/file/0e36b02061064b7229e3b.jpg"
 
-
+borg = bot
 DEFAULTUSER = bot.me.first_name
 
 global randi
