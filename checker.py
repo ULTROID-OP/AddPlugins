@@ -2,7 +2,7 @@
 #kang keep credits
 
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-
+borg = bot
 from userbot import ALIVE_NAME
 from userbot.utils import admin_cmd
 
