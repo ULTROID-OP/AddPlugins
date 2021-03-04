@@ -1,127 +1,119 @@
-# Creator - @THE_BL_ACK_HAT @Shivam_Patel
-#
-# Ultroid - UserBot
-#
-# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
-# PLease read the GNU Affero General Public License in
-# <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
+#full credits friday ot thanks friday bot ⚡
+#kang with credits else gay
 
-"""
-✘ Commands Available -
+from pokedex import pokedex
 
-• `{i}pokemon <query>`
-    Send details of Pokemon.
+from userbot import CMD_HELP
+from userbot.utils import admin_cmd
 
-• `{i}pokecard <query>`
-    Send Card of Pokemon.
-"""
 
-from pokedex import pokedex as badhiya
-import os
-import shutil
-from re import findall
-import requests
-from . import *
-
-@ultroid_cmd(pattern="pokemon ?(.*)")
-async def pokedex(event):
-    pokemon = event.pattern_match.group(1)
-    if not pokemon:
-        await eor(event, "`Give a Pokemon Name`")
+@borg.on(admin_cmd(pattern="pokedex (.*)"))
+async def _(event):
+    if event.fwd_from:
         return
-    xx = await eor(event, "`Booting up the pokedex.......`")
-    move = requests.get(f'https://pokeapi.co/api/v2/pokemon/{pokemon}')
-    rw = f"https://some-random-api.ml/pokedex?pokemon={pokemon}"
-    w=requests.get(f"https://api.pokemontcg.io/v1/cards?name={pokemon}")
-    lol=w.json()
-    r = requests.get(rw)
-    a=r.json()
-    try:
-        name=a['name']
-    except:
-        await eor(event, "`Be sure To give correct Name`")
-        return
-    typ=a['type']
-    species=a['species']
-    abilities=a['abilities']
-    height=a['height']
-    weight=a['weight']
-    esatge=r.json()['family']['evolutionStage']
-    try:
-        weaknesses=lol['cards'][0]['weaknesses'][0]['type']
-    except BaseException:
-        weaknesses=None
-    l=r.json()['family']['evolutionLine']
-    if not l:
-        line = 'None'
+    input_str = event.pattern_match.group(1)
+    pokedx = pokedex.Pokedex()
+    pokemen = pokedx.get_pokemon_by_name(input_str)
+    pokemon = pokemen[0]
+    name = str(pokemon.get("name"))
+    number = str(pokemon.get("number"))
+    species = str(pokemon.get("species"))
+    typo = pokemon.get("types")
+    types = ""
+    for tu in typo:
+        types += str(tu) + ",  "
+
+    lol = pokemon.get("abilities")
+    lmao = lol.get("normal")
+    ok = ""
+    for ty in lmao:
+        ok = str(ty) + ",  "
+
+    kk = lol.get("hidden")
+    hm = ""
+    for pq in kk:
+        hm += str(pq) + ",  "
+    hell = pokemon.get("eggGroups")
+    uio = ""
+    for x in hell:
+        uio += str(x) + ",  "
+
+    height = pokemon.get("height")
+    weight = pokemon.get("weight")
+    yes = pokemon.get("family")
+    Id = str(yes.get("id"))
+    evo = str(yes.get("evolutionStage"))
+    pol = yes.get("evolutionLine")
+    xy = ""
+    for p in pol:
+        xy += str(p) + ",  "
+
+    start = pokemon.get("starter")
+    if start == False:
+        start = "No"
+    elif start == True:
+        start = "True"
     else:
-        line=', '.join(map(str, l))
-    gen=a['generation']
-    try:    move1=move.json()["moves"][0]['move']['name']
-    except IndexError: move1=None
-    try:    move2=move.json()["moves"][1]['move']['name']
-    except IndexError: move2=None
-    try:    move3=move.json()["moves"][2]['move']['name']
-    except IndexError: move3=None
-    try:    move4=move.json()["moves"][3]['move']['name']
-    except IndexError : move4=None
-    try:    move5=move.json()["moves"][4]['move']['name']
-    except IndexError : move5=None
-    try:    move6=move.json()["moves"][5]['move']['name']
-    except IndexError : move6=None
-    try:    move7=move.json()["moves"][6]['move']['name']
-    except IndexError : move7=None
-    description=a['description']
-    typ=', '.join(map(str, typ))
-    Stats=a['stats']
-    species=', '.join(map(str, species))
-    abilities=', '.join(map(str, abilities))
-    poli = badhiya.Pokedex()
-    pname = poli.get_pokemon_by_name(pokemon)
-    pokemon = pname[0]
-    lst=pokemon.get("sprite")
+        pass
 
-    cap=f'''
+    leg = pokemon.get("legendary")
 
-**NAME** : `{name}`
-**TYPE** : `{typ}`
-**SPECIES** : `{species}`
-**Evolution Line** : `{line}`
-**Evolution Stage** : `{esatge}`
-**Generation** : `{gen}`
-**ABILITIES** : `{abilities}`
-**WEAKNESSES** :`{weaknesses}` 
-**HEIGHT** : `{height}`
-**WEIGHT** : `{weight}`
+    if leg == False:
+        leg = "No"
+    elif leg == True:
+        leg = "True"
+    else:
+        pass
 
-    **Stats**                               **Moves**
-**Hp**      : `{Stats['hp']}`               `(1){move1}`
-**Attack**  : `{Stats['attack']}`           `(2){move2}`   
-**Defense** : `{Stats['defense']}`          `(3){move3}`   
-**Sp_atk**  : `{Stats['sp_atk']}`           `(4){move4}`
-**Sp_def**  : `{Stats['sp_def']}`           `(5){move5}`
-**Speed**   : `{Stats['speed']}`            `(6){move6}`
-**Total**   : `{Stats['total']}`            `(7){move7}`
-**DESCRIPTION** : `{description}`
-  '''
-    await ultroid_bot.send_file(event.chat_id, lst, caption=cap)
-    await xx.delete()
+    myt = pokemon.get("mythical")
+    if myt == False:
+        myt = "No"
+    elif myt == True:
+        myt = "True"
+    else:
+        pass
+    ultra = pokemon.get("ultraBeast")
 
-@ultroid_cmd(pattern="pokecard ?(.*)")
-async def pokedex(event):
-    pokename=event.pattern_match.group(1)
-    if not pokename:
-        await eor(event, "`Give A Pokemon name`")
-        return
-    rw = f"https://api.pokemontcg.io/v1/cards?name={pokename}"
-    r = requests.get(rw)
-    a=r.json()
-    try:
-        o=a['cards'][0]['imageUrlHiRes']
-        await event.client.send_file(await event.client.get_input_entity(event.chat_id), o)
-        await event.delete()
-    except:
-        await eor(event, "`Be sure To give correct Name`")
-        return
+    if ultra == False:
+        ultra = "No"
+    elif ultra == True:
+        ultra = "True"
+    else:
+        pass
 
-HELP.update({f"{__name__.split('.')[1]}": f"{__doc__.format(i=Var.HNDLR)}"})
+    megA = pokemon.get("mega")
+
+    if megA == False:
+        megA = "No"
+    elif megA == True:
+        megA = "True"
+    else:
+        pass
+
+    gEn = pokemon.get("gen")
+    link = pokemon.get("sprite")
+    des = pokemon.get("description")
+
+    # hope = await borg(event.chat_id, link)
+    caption = f"<b><u>Pokemon Information Gathered Successfully</b></u>\n\n\n<b>Name:-   {name}\nNumber:-  {number}\nSpecies:- {species}\nType:- {types}\n\n<u>Abilities</u>\nNormal Abilities:- {ok}\nHidden Abilities:- {hm}\nEgg Group:-  {uio}\nHeight:- {height}\nWeight:- {weight}\n\n<u>Family</u>\nID:- {Id}\nEvolution Stage:- {evo}\nEvolution Line:- {xy}\nStarter:- {start}\nLegendary:- {leg}\nMythical:- {myt}\nUltra Beast:- {ultra}\nMega:- {megA}\nGen:-  {gEn}\nDescription:-  {des}</b>"
+
+    await borg.send_message(
+        event.chat_id,
+        caption,
+        parse_mode="HTML",
+        file=link,
+        force_document=False,
+        silent=True,
+    )
+    await event.delete()
+
+
+CMD_HELP.update(
+    {
+        "pokedex": "Pokedex\
+\n\nSyntax : .pokedex <pokemon name>\
+\nUsage : Gives Information About Given Pokemon.\
+\n\nExample : .pokedex pikachu\
+\nThis above syntax gives Information about Pikachu"
+    }
+)

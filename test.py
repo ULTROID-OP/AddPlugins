@@ -1,101 +1,33 @@
-# Ported From DarkCobra Originally By UNIBORG
-#
-# Ultroid - UserBot
-#
-# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
-# PLease read the GNU Affero General Public License in
-# <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
+    
+#Credit To @legendx22 . Keep credit if you are going to edit it. Join @LEGEND_USERBOT_SUPPORT
 
-"""
-✘ Commands Available -
 
-• `{i}test`
-    Test Ur Heroku Server Speed.
-
-"""
+import random, re
+from userbot import CMD_HELP
+from uniborg.util import admin_cmd
+import asyncio
 from telethon import events
-from datetime import datetime
-import io
-import speedtest
-from . import *
 
-
-@ultroid_cmd(pattern="test ?(.*)")
+@borg.on(admin_cmd(pattern="test ?(.*)"))
 async def _(event):
-    if event.fwd_from:
-        return
-    input_str = event.pattern_match.group(1)
-    as_text = True
-    as_document = False
-    if input_str == "image":
-        as_document = False
-    elif input_str == "file":
-        as_document = True
-    elif input_str == "text":
-        as_text = True
-    xx = await eor(event, "`Calculating ur Ultroid Server Speed. Please wait!`")
-    start = datetime.now()
-    s = speedtest.Speedtest()
-    s.get_best_server()
-    s.download()
-    s.upload()#dchehe
-    end = datetime.now()
-    ms = (end - start).seconds
-    response = s.results.dict()
-    download_speed = response.get("download")
-    upload_speed = response.get("upload")
-    ping_time = response.get("ping")
-    client_infos = response.get("client")
-    i_s_p = client_infos.get("isp")
-    i_s_p_rating = client_infos.get("isprating")
-    reply_msg_id = event.message.id
-    if event.reply_to_msg_id:
-        reply_msg_id = event.reply_to_msg_id
-    try:#heheh
-        response = s.results.share()
-        speedtest_image = response
-        if as_text:
-            await xx.edit("""`Ultroid Server Speed in {} sec`
+     if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
+       
+        await event.edit("`Testing LEGEND BOT....`")
+        await asyncio.sleep(2)
+        await event.edit("`Testing LEGEND BOT..`")
+        await asyncio.sleep(2)
+        await event.edit("__Testing Successful__")
+        await asyncio.sleep(2)
+        await event.edit("`Making Output` \n\nPlease wait")
+        await asyncio.sleep(2)
+        await event.edit("__Output Successful__")
+        await asyncio.sleep(3.5)
+        await event.edit("Your[LEGEND BOT](https:/t.me/hackerget0) is working Fine...\n       Join @teamishere For Any Help......")
 
-`Download: {}`
-`Upload: {}`
-`Ping: {}`
-`Internet Service Provider: {}`
-`ISP Rating: {}`""".format(ms, convert_from_bytes(download_speed), convert_from_bytes(upload_speed), ping_time, i_s_p, i_s_p_rating))
-        else:
-            await event.client.send_file(
-                event.chat_id,
-                speedtest_image,#heeehe
-                caption="**SpeedTest** completed in {} seconds".format(ms),
-                force_document=as_document,
-                reply_to=reply_msg_id,
-                allow_cache=False
-            )
-            await event.delete()
-    except Exception as exc:#dc
-        await xx.edit("""**SpeedTest** completed in {} seconds
-Download: {}
-Upload: {}
-Ping: {}
-
-
-__With the Following ERRORs__
-{}""".format(ms, convert_from_bytes(download_speed), convert_from_bytes(upload_speed), ping_time, str(exc)))
-
-
-def convert_from_bytes(size):
-    power = 2**10
-    n = 0
-    units = {
-        0: "",
-        1: "kilobytes",
-        2: "megabytes",
-        3: "gigabytes",
-        4: "terabytes"
+CMD_HELP.update(
+    {
+        "test": "**Plugin : **`test`\
+    \n\n**Syntax : **`.test`\
+    \n**Function : **this is only plugin for watching"
     }
-    while size > power:
-        size /= power
-        n += 1
-    return f"{round(size, 2)} {units[n]}"
-
-HELP.update({f"{__name__.split('.')[1]}": f"{__doc__.format(i=Var.HNDLR)}"})
+)
